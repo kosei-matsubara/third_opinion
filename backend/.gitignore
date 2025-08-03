@@ -1,0 +1,10 @@
+# Go固有設定
+*.exe
+*.test
+*.out
+vendor/
+!vendor/vendor.json
+
+# Go開発
+.air.toml.tmp
+coverage.out

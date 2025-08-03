@@ -1,0 +1,30 @@
+# ========================================
+# 全体共通設定
+# ========================================
+# 環境設定
+.env
+.env.*
+
+# データベース
+db/mysql_data/
+**/mysql_data/
+
+# Docker
+.dockerignore
+
+# 開発環境
+.vscode/
+.idea/
+
+# OS固有
+.DS_Store
+Thumbs.db
+
+# ログ・一時ファイル
+*.log
+tmp/
+logs/
+
+# ビルド成果物
+dist/
+build/

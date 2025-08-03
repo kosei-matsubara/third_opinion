@@ -1,0 +1,38 @@
+# versionは不要
+# version: "3.8"
+
+services:
+  app:
+    build:
+      context: ./backend
+      target: dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app    # バックエンドのみマウント（ベストプラクティス）
+      - /app/tmp
+    depends_on:
+      - db
+    networks:
+      - app-network
+    env_file:
+      - .env
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: myapp_dev
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./configs/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
