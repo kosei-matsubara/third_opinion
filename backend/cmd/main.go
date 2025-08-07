@@ -1,31 +1,18 @@
 package main
 
 import (
-    "net/http"
-    
-    "github.com/gin-gonic/gin"
+	"log"
+
+	"github.com/third_opinion/backend/internal/interfaces/router"
 )
 
 func main() {
-    r := gin.Default()
-    
-    // ヘルスチェック用エンドポイント
+	// Setup router with all Todo API endpoints
+	r := router.SetupRouter()
 
-    r.GET("/health", func(c *gin.Context) {
-        c.JSON(http.StatusOK, gin.H{
-            "status": "OK",
-            "message": "Go backend is running!",
-        })
-    })
-    
-
-    // APIルート例
-    r.GET("/", func(c *gin.Context) {
-        c.JSON(http.StatusOK, gin.H{
-            "message": "Welcome to Third Opinion API",
-            "version": "1.0.0",
-        })
-    })
-    
-    r.Run(":8080")
+	// Start server
+	log.Println("Starting Todo API server on :8080...")
+	if err := r.Run(":8080"); err != nil {
+		log.Fatal("Failed to start server:", err)
+	}
 }
